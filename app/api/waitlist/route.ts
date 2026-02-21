@@ -1,46 +1,40 @@
 import { NextResponse } from "next/server";
-import { supabaseAdmin } from "../../../lib/supabaseAdmin";
-function isValidEmail(email: string) {
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-}
+import { createClient } from "@supabase/supabase-js";
+
+export const runtime = "nodejs"; // avoids edge quirks
 
 export async function POST(req: Request) {
   try {
-    const { email } = await req.json();
-    const cleanEmail = String(email || "").trim().toLowerCase();
+    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+    const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
-    if (!cleanEmail || !isValidEmail(cleanEmail)) {
+    // Never crash the build if env is missing
+    if (!supabaseUrl || !supabaseAnonKey) {
       return NextResponse.json(
-        { ok: false, message: "Please enter a valid email." },
-        { status: 400 }
-      );
-    }
-
-    const { error } = await supabaseAdmin.from("waitlist").insert([{ email: cleanEmail }]);
-
-    // If email already exists, treat as success for user experience
-    if (error) {
-      const msg = (error.message || "").toLowerCase();
-      if (msg.includes("duplicate") || msg.includes("unique")) {
-        return NextResponse.json({
-          ok: true,
-          message: "You’re already on the list. We’ll notify you first.",
-        });
-      }
-
-      return NextResponse.json(
-        { ok: false, message: "Could not save your email. Try again." },
+        { error: "Missing Supabase environment variables" },
         { status: 500 }
       );
     }
 
-    return NextResponse.json({
-      ok: true,
-      message: "Success. You’re on the list. We’ll notify you first.",
-    });
-  } catch {
+    const supabase = createClient(supabaseUrl, supabaseAnonKey);
+
+    const body = await req.json();
+    const email = String(body?.email ?? "").trim().toLowerCase();
+
+    if (!email || !email.includes("@")) {
+      return NextResponse.json({ error: "Invalid email" }, { status: 400 });
+    }
+
+    const { error } = await supabase.from("waitlist").insert([{ email }]);
+
+    if (error) {
+      return NextResponse.json({ error: error.message }, { status: 400 });
+    }
+
+    return NextResponse.json({ ok: true });
+  } catch (e: any) {
     return NextResponse.json(
-      { ok: false, message: "Something went wrong. Try again." },
+      { error: e?.message ?? "Unknown error" },
       { status: 500 }
     );
   }
