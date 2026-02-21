@@ -43,12 +43,12 @@ export default function Page() {
 
   return (
     <main className="min-h-dvh bg-white text-black">
-      <div className="mx-auto max-w-md px-5 py-6">
+      <div className="mx-auto max-w-md px-5 py-4">
 
         {/* Header */}
-        <header className="flex justify-center pt-3">
-          <h2 className="text-2xl font-black tracking-[0.12em] leading-none">
-            <span className="wordmark">MESTORES</span>
+        <header className="flex justify-center pt-2">
+          <h2 className="text-[2.75rem] font-black tracking-tight leading-none">
+            Mestores
           </h2>
         </header>
 
@@ -57,9 +57,8 @@ export default function Page() {
           initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, ease: "easeOut" }}
-          className="mt-10"
+          className="mt-4"
         >
-
           <h1 className="mt-4 text-4xl font-black leading-[1.05] tracking-tight">
             Shop online,
             <br />
@@ -68,7 +67,7 @@ export default function Page() {
 
           <p className="mt-4 text-sm leading-relaxed text-black/70">
             Verified sellers. Real products. Structured delivery.
-            No guessing.
+            No guessing. No gambling.
           </p>
 
           {/* Trust badges */}
@@ -76,7 +75,7 @@ export default function Page() {
             {["Verified brands", "Secure handling", "Trusted delivery"].map((item) => (
               <span
                 key={item}
-                className="rounded-full border border-black/10 px-3 py-1 text-xs font-medium text-black/70"
+                className="rounded-full border border-black/5 px-3 py-1 text-xs font-medium text-black/70"
               >
                 {item}
               </span>
@@ -84,25 +83,24 @@ export default function Page() {
           </div>
         </motion.section>
 
-        {/* Main Signup */}
+        {/* Main Signup Card */}
         <motion.section
           id="join"
           initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.15, duration: 0.7, ease: "easeOut" }}
-          className="mt-10 rounded-2xl border border-black/10 bg-black/[0.02] p-5"
+          className="mt-8 rounded-3xl border border-black/5 bg-black/[0.02] p-6"
         >
           <p className="text-sm font-semibold">
-            Get access to trusted online shopping
+            Get early access to trusted online shopping
           </p>
 
           <p className="mt-1 text-xs text-black/60">
             Be among the first to shop verified brands on Mestores.
           </p>
 
-          {/* Social proof */}
           <p className="mt-2 text-xs font-medium text-black/70">
-            Used by people who value certainity
+            Used by people who value certainty
           </p>
 
           <form onSubmit={onSubmit} className="mt-4 flex gap-2">
@@ -111,7 +109,7 @@ export default function Page() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Enter your email"
-              className="flex-1 rounded-xl border border-black/15 px-3 py-2 text-sm outline-none focus:border-black/30 bg-white"
+              className="flex-1 rounded-xl border border-black/10 px-3 py-2 text-sm outline-none focus:border-black/30 bg-white"
               required
             />
 
@@ -120,7 +118,7 @@ export default function Page() {
               disabled={status === "loading"}
               className="rounded-xl bg-black px-4 py-2 text-sm font-semibold text-white disabled:opacity-60"
             >
-              {status === "loading" ? "Joining…" : "Join"}
+              {status === "loading" ? "Joining…" : "Access"}
             </button>
           </form>
 
@@ -140,7 +138,7 @@ export default function Page() {
         </motion.section>
 
         {/* Footer */}
-        <footer className="mt-12 text-xs text-black/40 text-center">
+        <footer className="mt-8 text-center text-xs text-black/40">
           © {year} Mestores. Built for trust-first commerce in Zambia.
         </footer>
 
