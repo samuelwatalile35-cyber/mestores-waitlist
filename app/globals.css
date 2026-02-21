@@ -8,7 +8,9 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
+
+  /* ✅ Switch the font token from Geist to Inter */
+  --font-sans: var(--font-inter);
   --font-mono: var(--font-geist-mono);
 }
 
@@ -22,5 +24,18 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+
+  /* ✅ Use the theme font token */
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+}
+
+/* ✅ Mestores wordmark outline (only decoration requested) */
+.wordmark {
+  display: inline-block;
+  padding: 6px 14px;
+  border: 3px solid #000; /* thickness */
+  border-radius: 0px; /* keep sharp corners; change to 4px if you want slight rounding */
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  line-height: 1;
 }

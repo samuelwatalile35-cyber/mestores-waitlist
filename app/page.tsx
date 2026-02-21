@@ -47,10 +47,10 @@ export default function Page() {
 
         {/* Header */}
         <header className="flex justify-center pt-3">
-  <h2 className="text-2xl font-black tracking-[0.12em] leading-none">
-    MESTORES
-  </h2>
-</header>
+          <h2 className="text-2xl font-black tracking-[0.12em] leading-none">
+            <span className="wordmark">MESTORES</span>
+          </h2>
+        </header>
 
         {/* Hero */}
         <motion.section
@@ -59,10 +59,6 @@ export default function Page() {
           transition={{ duration: 0.7, ease: "easeOut" }}
           className="mt-10"
         >
-          <div className="inline-flex items-center gap-2 rounded-full border border-black/10 bg-black/[0.03] px-3 py-1 text-xs font-medium">
-            <span className="h-1.5 w-1.5 rounded-full bg-black/60" />
-            Early access opening soon
-          </div>
 
           <h1 className="mt-4 text-4xl font-black leading-[1.05] tracking-tight">
             Shop online,
@@ -124,7 +120,7 @@ export default function Page() {
               disabled={status === "loading"}
               className="rounded-xl bg-black px-4 py-2 text-sm font-semibold text-white disabled:opacity-60"
             >
-              {status === "loading" ? "Joining…" : "Notify me"}
+              {status === "loading" ? "Joining…" : "Join"}
             </button>
           </form>
 
